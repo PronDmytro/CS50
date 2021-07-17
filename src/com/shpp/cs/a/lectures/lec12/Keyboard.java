@@ -13,7 +13,7 @@ import java.io.*;
 
 import acm.graphics.*;
 import com.shpp.cs.a.graphics.WindowProgram;
-import com.shpp.cs.a.lectures.lec10.StdAudio;
+// import com.shpp.cs.a.lectures.lec10.StdAudio;
 
 public class Keyboard extends WindowProgram {
     /* A nice window size. */
@@ -38,7 +38,7 @@ public class Keyboard extends WindowProgram {
     public void mousePressed(MouseEvent e) {
         GObject hit = getElementAt(e.getX(), e.getY());
         if (soundMap.containsKey(hit)) {
-            StdAudio.play(soundMap.get(hit));
+            //StdAudio.play(soundMap.get(hit));
         }
     }
 
@@ -75,7 +75,7 @@ public class Keyboard extends WindowProgram {
                 add(key);
 
 				/* Associate this key with the sound clip to play. */
-                soundMap.put(key, StdAudio.read("assets/keyboard/"+note));
+               //soundMap.put(key, StdAudio.read("assets/keyboard/"+note));
             }
 
             br.close();
