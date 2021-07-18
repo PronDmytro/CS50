@@ -33,7 +33,6 @@ public class Assignment5Part2 extends TextProgram {
             //sum of 2 digits and rest(if the prev sum was more or equal 10, so we need to add 1 to the next rank)
             int sum = currentDigit1 + currentDigit2 + rest;
 
-
             if (sum >= NUMERAL_SYSTEM) {
                 //need to add 1 to the next rank
                 rest = 1;
@@ -75,11 +74,9 @@ public class Assignment5Part2 extends TextProgram {
             if (rest == INCREASE_RANK_NUMBER && (currentDigit + rest) == NUMERAL_SYSTEM) {
                 result.append(0);
                 rest = INCREASE_RANK_NUMBER;
-
             } else if (rest == INCREASE_RANK_NUMBER) {
                 result.append(currentDigit + rest);
                 rest = 0;
-
             } else {
                 result.append(currentDigit);
             }
@@ -105,7 +102,6 @@ public class Assignment5Part2 extends TextProgram {
                 println("Error: " + e);
                 break;
             }
-
         }
     }
 }
