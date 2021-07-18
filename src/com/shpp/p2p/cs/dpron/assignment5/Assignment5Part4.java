@@ -12,11 +12,11 @@ public class Assignment5Part4 extends TextProgram {
      * This method runs the program
      */
     public void run() {
-        println(extractColumn("assets/test1.csv", 1));
+        println(extractColumn("assets/test2.csv", 1));
     }
 
     /**
-     * extractColumn returns the whole parsed arraylist column
+     * ExtractColumn returns the whole parsed arraylist column
      *
      * @param filename    accepts the name of the file
      * @param columnIndex accepts the index of the column needs to be parsed and returned
@@ -51,38 +51,40 @@ public class Assignment5Part4 extends TextProgram {
      * @return arraylist of parsed line
      */
     private ArrayList<String> fieldsIn(String line) {
-        ArrayList<String> fieldsIn = new ArrayList<>();
-
-        // collect word by symbols(chars)
+        ArrayList<String> result = new ArrayList<>();
         StringBuilder fieldBuilder = new StringBuilder();
-        fieldBuilder.append("\"");
-        //determines whether the quote is closed or not
-        boolean isQuoteClosed = true;
+
+        final char COMA = ',';
+        final char QUOT = '\"';
+
         for (int i = 0; i < line.length(); i++) {
-            // each char of word
-            char currentChar = line.charAt(i);
+            fieldBuilder.append(QUOT);
+            //Adding letters to element until find coma
+            while (line.charAt(i) != COMA) {
 
-            if (currentChar == '"') {
-                isQuoteClosed = !isQuoteClosed;
-            } else if (currentChar == ',') {
-                // Add word to the list
-                if (isQuoteClosed) {
-                    fieldBuilder.append("\"");
-                    fieldsIn.add(fieldBuilder.toString());
-
-                    //start new word
-                    fieldBuilder = new StringBuilder();
-                    fieldBuilder.append("\"");
-                } else {
-                    fieldBuilder.append(currentChar);
+                //If find quote - adding letters to element until find another coma
+                if (line.charAt(i) == QUOT) {
+                    do {
+                        fieldBuilder.append(line.charAt(i));
+                        i++;
+                    } while (line.charAt(i) != QUOT);
                 }
-            } else {
-                fieldBuilder.append(currentChar);
-            }
-        }
-        fieldBuilder.append("\"");
+                //Add characters or last quote to element
+                fieldBuilder.append(line.charAt(i));
+                i++;
 
-        fieldsIn.add(fieldBuilder.toString());
-        return fieldsIn;
+                //If element reaches end of line - break
+                if (i == line.length())
+                    break;
+            }
+            fieldBuilder.append(QUOT);
+            String temp = fieldBuilder.toString();
+            if (temp.contains("\"\"")) {
+                temp = temp.replace("\"\"", "\"");
+            }
+            result.add(temp);
+            fieldBuilder = new StringBuilder();
+        }
+        return result;
     }
 }
