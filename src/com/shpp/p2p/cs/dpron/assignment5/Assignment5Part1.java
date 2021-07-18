@@ -15,7 +15,6 @@ public class Assignment5Part1 extends TextProgram {
                 println("Error: " + e);
                 break;
             }
-
         }
     }
 
