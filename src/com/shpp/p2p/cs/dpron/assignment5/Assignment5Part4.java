@@ -7,10 +7,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * TODO: CSV parser
+ */
 public class Assignment5Part4 extends TextProgram {
-    /**
-     * This method runs the program
-     */
+
     public void run() {
         println(extractColumn("assets/test2.csv", 1));
     }
