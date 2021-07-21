@@ -2,8 +2,26 @@ package com.shpp.p2p.cs.dpron.assignment5;
 
 import com.shpp.cs.a.console.TextProgram;
 
+/**
+ * TODO: Add numeric strings
+ */
 public class Assignment5Part2 extends TextProgram {
-    private static final int NUMERAL_SYSTEM = 3; //not more than 10
+    private static final int NUMERAL_SYSTEM = 10; //not more than 10
+
+    public void run() {
+        /* Sit in a loop, reading numbers and adding them. */
+        while (true) {
+            try {
+                String n1 = readLine("Enter first number:  ");
+                String n2 = readLine("Enter second number: ");
+                println(n1 + " + " + n2 + " = " + addNumericStrings(n1, n2));
+                println();
+            } catch (Exception e) {
+                println("Error: " + e);
+                break;
+            }
+        }
+    }
 
     /**
      * Given two string representations of non negative integers, adds the
@@ -88,20 +106,5 @@ public class Assignment5Part2 extends TextProgram {
         }
 
         return result.toString();
-    }
-
-    public void run() {
-        /* Sit in a loop, reading numbers and adding them. */
-        while (true) {
-            try {
-                String n1 = readLine("Enter first number:  ");
-                String n2 = readLine("Enter second number: ");
-                println(n1 + " + " + n2 + " = " + addNumericStrings(n1, n2));
-                println();
-            } catch (Exception e) {
-                println("Error: " + e);
-                break;
-            }
-        }
     }
 }
