@@ -1,11 +1,11 @@
-package com.shpp.cs.assignments.arrays.hg.teest.gui;
+package com.shpp.p2p.cs.dpron.assignment6.hg.teest.gui;
 
 import acm.gui.TablePanel;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestCase;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestResult;
 
-import java.awt.Dimension;
-import javax.swing.JTextArea;
-
-import com.shpp.cs.assignments.arrays.hg.teest.*;
+import javax.swing.*;
+import java.awt.*;
 
 public class TeestCaseRow extends TablePanel {
     private ResultBox resultBox = new ResultBox();

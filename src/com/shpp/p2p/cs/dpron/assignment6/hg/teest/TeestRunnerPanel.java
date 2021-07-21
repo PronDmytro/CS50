@@ -1,15 +1,9 @@
-package com.shpp.cs.assignments.arrays.hg.teest;
+package com.shpp.p2p.cs.dpron.assignment6.hg.teest;
 
 import acm.gui.TablePanel;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.gui.TeestPanel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import com.shpp.cs.assignments.arrays.hg.teest.gui.TeestPanel;
+import java.util.*;
 
 public class TeestRunnerPanel extends TablePanel {
     private final List tests;

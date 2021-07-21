@@ -1,21 +1,19 @@
-package com.shpp.cs.assignments.arrays.hg.teest.gui;
+package com.shpp.p2p.cs.dpron.assignment6.hg.teest.gui;
 
 import acm.graphics.GCanvas;
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
 import acm.io.IODialog;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.ResultTypeHolder;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestResult;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.shpp.cs.assignments.arrays.hg.teest.*;
 
 public class ResultBox extends GCanvas implements MouseListener, ComponentListener {
     private static final int SIZE = 50;

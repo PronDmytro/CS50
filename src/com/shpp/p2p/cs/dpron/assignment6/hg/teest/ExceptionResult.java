@@ -1,4 +1,4 @@
-package com.shpp.cs.assignments.arrays.hg.teest;
+package com.shpp.p2p.cs.dpron.assignment6.hg.teest;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

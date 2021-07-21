@@ -1,15 +1,16 @@
-package com.shpp.cs.assignments.arrays.hg.teest.gui;
+package com.shpp.p2p.cs.dpron.assignment6.hg.teest.gui;
 
 import acm.gui.TablePanel;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestCase;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestResult;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestSuite;
 
-import java.awt.Color;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
-
-import com.shpp.cs.assignments.arrays.hg.teest.*;
 
 public class TeestPanel extends TablePanel {
     private final TeestSuite testSuite;
