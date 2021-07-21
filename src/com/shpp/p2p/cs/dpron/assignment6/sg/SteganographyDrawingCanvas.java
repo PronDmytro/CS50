@@ -1,11 +1,10 @@
-package com.shpp.cs.assignments.arrays.sg;
+package com.shpp.p2p.cs.dpron.assignment6.sg;
 
 import acm.graphics.GCanvas;
 import acm.graphics.GImage;
 import acm.graphics.GLine;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;

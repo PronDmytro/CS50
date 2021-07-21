@@ -1,28 +1,21 @@
-package com.shpp.cs.assignments.arrays.sg;
+package com.shpp.p2p.cs.dpron.assignment6.sg;
 
 import acm.graphics.GImage;
 import acm.gui.TableLayout;
-import acm.program.Program;
 import acm.util.ErrorException;
 import acm.util.MediaTools;
-import com.shpp.cs.a.graphics.WindowProgram;
 import com.shpp.cs.a.simple.SimpleProgram;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.filechooser.FileFilter;
 
 public class Steganography extends SimpleProgram implements SteganographyConstants {
     private static final int HGAP = 5;

@@ -1,9 +1,9 @@
-package com.shpp.cs.assignments.arrays.sg;
+package com.shpp.p2p.cs.dpron.assignment6.sg;
 
 import acm.graphics.GCanvas;
 import acm.graphics.GImage;
 
-import java.awt.Dimension;
+import java.awt.*;
 
 public class SteganographyPictureCanvas extends GCanvas implements SteganographyConstants {
     private GImage image;

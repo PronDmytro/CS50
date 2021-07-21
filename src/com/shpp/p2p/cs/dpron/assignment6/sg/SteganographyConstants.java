@@ -1,4 +1,4 @@
-package com.shpp.cs.assignments.arrays.sg;
+package com.shpp.p2p.cs.dpron.assignment6.sg;
 
 public interface SteganographyConstants {
     int CANVAS_WIDTH = 400;
