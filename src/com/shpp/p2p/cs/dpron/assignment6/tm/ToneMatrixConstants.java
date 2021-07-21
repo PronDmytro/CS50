@@ -1,4 +1,4 @@
-package com.shpp.cs.assignments.arrays.tm;
+package com.shpp.p2p.cs.dpron.assignment6.tm;
 
 /**
  * This class contains methods that produce constants you might find useful when

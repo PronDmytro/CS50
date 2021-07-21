@@ -1,15 +1,10 @@
-package com.shpp.cs.assignments.arrays.tm;
+package com.shpp.p2p.cs.dpron.assignment6.tm;
 
 import acm.graphics.GCanvas;
 import acm.graphics.GRect;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.*;
+import java.awt.event.*;
 
 public class ToneMatrixDisplay extends GCanvas implements MouseListener, MouseMotionListener, ComponentListener {
     private static final int GSCALE = 20;

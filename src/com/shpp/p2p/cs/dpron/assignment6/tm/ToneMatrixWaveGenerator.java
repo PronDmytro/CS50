@@ -1,4 +1,4 @@
-package com.shpp.cs.assignments.arrays.tm;
+package com.shpp.p2p.cs.dpron.assignment6.tm;
 
 import acm.graphics.GMath;
 

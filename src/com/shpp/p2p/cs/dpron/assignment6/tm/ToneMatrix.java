@@ -1,19 +1,12 @@
-package com.shpp.cs.assignments.arrays.tm;
+package com.shpp.p2p.cs.dpron.assignment6.tm;
 
-import acm.program.Program;
 import acm.util.ErrorException;
 import com.shpp.cs.a.simple.SimpleProgram;
 
-import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+import java.awt.event.ActionEvent;
+import java.io.*;
 
 public class ToneMatrix extends SimpleProgram {
     private ToneMatrixDisplay display = new ToneMatrixDisplay();
@@ -35,7 +28,6 @@ public class ToneMatrix extends SimpleProgram {
         } else if (e.getActionCommand().equals("Load Matrix")) {
             this.loadMatrix();
         }
-
     }
 
     private String extensionOf(File filename) {
