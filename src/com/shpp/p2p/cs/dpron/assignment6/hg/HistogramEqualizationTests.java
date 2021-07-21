@@ -1,8 +1,9 @@
-package com.shpp.cs.assignments.arrays.hg;
+package com.shpp.p2p.cs.dpron.assignment6.hg;
 
-import acm.program.Program;
 import com.shpp.cs.a.simple.SimpleProgram;
-import com.shpp.cs.assignments.arrays.hg.teest.*;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestCase;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestRunnerPanel;
+import com.shpp.p2p.cs.dpron.assignment6.hg.teest.TeestSuite;
 
 public class HistogramEqualizationTests extends SimpleProgram {
     public void init() {

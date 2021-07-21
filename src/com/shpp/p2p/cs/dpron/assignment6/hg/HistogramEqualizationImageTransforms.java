@@ -1,4 +1,4 @@
-package com.shpp.cs.assignments.arrays.hg;
+package com.shpp.p2p.cs.dpron.assignment6.hg;
 
 import acm.graphics.GImage;
 

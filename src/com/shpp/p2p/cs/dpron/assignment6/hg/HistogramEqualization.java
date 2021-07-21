@@ -1,18 +1,16 @@
-package com.shpp.cs.assignments.arrays.hg;
+package com.shpp.p2p.cs.dpron.assignment6.hg;
 
 import acm.graphics.GImage;
-import acm.program.GraphicsProgram;
 import acm.util.ErrorException;
 import com.shpp.cs.a.graphics.WindowProgram;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.File;
 import java.util.Arrays;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 
 public class HistogramEqualization extends WindowProgram implements ComponentListener {
     private GImage displayImage;

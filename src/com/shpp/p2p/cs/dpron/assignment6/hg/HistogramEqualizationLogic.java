@@ -1,4 +1,4 @@
-package com.shpp.cs.assignments.arrays.hg;
+package com.shpp.p2p.cs.dpron.assignment6.hg;
 
 public class HistogramEqualizationLogic {
     private static final int MAX_LUMINANCE = 255;
@@ -13,8 +13,16 @@ public class HistogramEqualizationLogic {
      * @return A histogram of those luminances.
      */
     public static int[] histogramFor(int[][] luminances) {
-        /* TODO: Implement this method! */
-        return null;
+        //array of 256 integers each int -  for each level of luminance
+        int[] histogram = new int[256];
+        //iterating through the array of pixel's height and width
+        for (int[] luminance : luminances) {
+            for (int i : luminance) {
+                //count in each level of luminance into its integer within the array
+                histogram[i] += 1;
+            }
+        }
+        return histogram;
     }
 
     /**
@@ -28,8 +36,13 @@ public class HistogramEqualizationLogic {
      * @return The cumulative frequency array.
      */
     public static int[] cumulativeSumFor(int[] histogram) {
-		/* TODO: Implement this method! */
-        return null;
+        //iterating through the histogram
+        for (int i = 0; i < histogram.length; i++) {
+            //adding previous number to current each time
+            if (i != 0)
+                histogram[i] += histogram[i - 1];
+        }
+        return histogram;
     }
 
     /**
@@ -39,8 +52,8 @@ public class HistogramEqualizationLogic {
      * @return The total number of pixels in that image.
      */
     public static int totalPixelsIn(int[][] luminances) {
-		/* TODO: Implement this method! */
-        return 0;
+        //multiplying pixel's height on pixel's width
+        return luminances.length * luminances[0].length;
     }
 
     /**
@@ -54,7 +67,19 @@ public class HistogramEqualizationLogic {
      * @return The luminances of the image formed by applying histogram equalization.
      */
     public static int[][] equalize(int[][] luminances) {
-		/* TODO: Implement this method! */
-        return null;
+        //calling all previously created methods
+        int[] histogram = histogramFor(luminances);
+        int[] cumulativeHistogram = cumulativeSumFor(histogram);
+        int totalPixels = totalPixelsIn(luminances);
+        //creating the new array of newLuminance
+        int[][] newLuminance = new int[luminances.length][luminances[0].length];
+        //iterating through the array of pixel's height and width
+        for (int i = 0; i < luminances.length; i++) {
+            for (int k = 0; k < luminances[0].length; k++) {
+                //calculating the new Luminance by the formula
+                newLuminance[i][k] = MAX_LUMINANCE * cumulativeHistogram[luminances[i][k]] / totalPixels;
+            }
+        }
+        return newLuminance;
     }
 }
