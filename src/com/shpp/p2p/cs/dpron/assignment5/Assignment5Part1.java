@@ -2,6 +2,9 @@ package com.shpp.p2p.cs.dpron.assignment5;
 
 import com.shpp.cs.a.console.TextProgram;
 
+/**
+ * TODO: To count syllables in word
+ */
 public class Assignment5Part1 extends TextProgram {
     public void run() {
         /* Repeatedly prompt the user for a word and print out the estimated
@@ -27,17 +30,12 @@ public class Assignment5Part1 extends TextProgram {
      */
     private int syllablesIn(String word) {
         int count = 0;
-        word = word.toLowerCase();
-        for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) == '\"' || word.charAt(i) == '\'' || word.charAt(i) == '-' || word.charAt(i) == ','
-                    || word.charAt(i) == ')' || word.charAt(i) == '(') {
-                word = word.substring(0, i) + word.substring(i + 1);
-            }
-        }
         boolean isPrevVowel = false;
         for (int j = 0; j < word.length(); j++) {
+            // check if `word` have vowel letters
             if (word.contains("a") || word.contains("e") || word.contains("i")
                     || word.contains("o") || word.contains("u")) {
+                // check if last letter in `word` != 'e'
                 if (isVowel(word.charAt(j)) && !((word.charAt(j) == 'e') && (j == word.length() - 1))) {
                     if (!isPrevVowel) {
                         count++;
