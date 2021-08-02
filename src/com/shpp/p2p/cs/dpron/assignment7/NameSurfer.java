@@ -65,7 +65,6 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
             graph.update();
         } else if (e.getActionCommand().equals("Graph")) {
             String enteredName = Name.getText();
-            Name.setText("");
             NameSurferEntry rankings = namesDB.findEntry(enteredName);
             if (rankings != null) {
                 graph.addEntry(rankings);
