@@ -67,6 +67,7 @@ public class NameSurferEntry implements NameSurferConstants {
      * Returns a string that makes it easy to see the value of a
      * NameSurferEntry.
      */
+    @Override
     public String toString() {
         StringBuilder value = new StringBuilder("\"" + Name + " [");
         for (int i = 0; i < NDECADES; i++) {

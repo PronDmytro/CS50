@@ -55,7 +55,7 @@ public class NameSurferDataBase implements NameSurferConstants {
     public NameSurferEntry findEntry(String name) {
         // optimize string to data
         if (!name.isEmpty()) {
-            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         }
         return namesDB.getOrDefault(name, null);
     }

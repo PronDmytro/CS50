@@ -45,4 +45,9 @@ public interface NameSurferConstants {
      */
     public static final int GRAPH_MARGIN_SIZE = 20;
 
+    /**
+     * The number of pixels width input field
+     */
+    public static final int INPUT_FIELD_WIDTH = 20;
+
 }

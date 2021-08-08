@@ -30,8 +30,9 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
         add(label, SOUTH);
 
         // add input field
-        Name = new JTextField(20);
+        Name = new JTextField(INPUT_FIELD_WIDTH);
         add(Name, SOUTH);
+        Name.setActionCommand("EnterPressed");
         Name.addActionListener(this);
 
         // add  btn
@@ -63,11 +64,11 @@ public class NameSurfer extends SimpleProgram implements NameSurferConstants {
         if (e.getActionCommand().equals("Clear")) {
             graph.clear();
             graph.update();
-        } else if (e.getActionCommand().equals("Graph")) {
+        } else if (e.getActionCommand().equals("Graph")|| e.getActionCommand().equals("EnterPressed")) {
             String enteredName = Name.getText();
             Name.setText("");
             NameSurferEntry rankings = namesDB.findEntry(enteredName);
-            if (rankings != null) {
+            if (rankings != null && !graph.isExist(rankings)) {
                 graph.addEntry(rankings);
                 graph.update();
             }

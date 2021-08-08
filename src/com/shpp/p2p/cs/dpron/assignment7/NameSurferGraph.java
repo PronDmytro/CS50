@@ -35,6 +35,12 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
         entriesDisplayed.clear();
     }
 
+    /**
+     * Checks if the given item is already in use
+     */
+    public boolean isExist(NameSurferEntry entry) {
+        return entriesDisplayed.contains(entry);
+    }
 
     /* Method: addEntry(entry) */
 
@@ -81,8 +87,7 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
     private void drawVerticalLines() {
         for (int i = 0; i < NDECADES; i++) {
             double x = i * (getWidth() / NDECADES);
-
-            GLine line = new GLine(x, i, x, getHeight());
+            GLine line = new GLine(x, 0, x, getHeight());
             add(line);
         }
     }
@@ -113,7 +118,7 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
             String label = Integer.toString(decade);
 
             double y = getHeight() - GRAPH_MARGIN_SIZE / 4;
-            double x = 2 + i * (getWidth() / NDECADES);
+            double x = i * (getWidth() / NDECADES);
 
             GLabel displayedDecade = new GLabel(label, x, y);
             add(displayedDecade);
@@ -192,10 +197,11 @@ public class NameSurferGraph extends GCanvas implements NameSurferConstants, Com
      * Set color to any GObject by the incoming number
      */
     void setColor(GObject obj, int entryNumber) {
+        entryNumber += 1;
         if (entryNumber % 4 == 1) {
-            obj.setColor(Color.RED);
-        } else if (entryNumber % 4 == 2) {
             obj.setColor(Color.BLUE);
+        } else if (entryNumber % 4 == 2) {
+            obj.setColor(Color.RED);
         } else if (entryNumber % 4 == 3) {
             obj.setColor(Color.MAGENTA);
         }
