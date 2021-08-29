@@ -2,20 +2,11 @@ package com.shpp.p2p.cs.dpron.assignment10;
 
 import java.util.*;
 
-import static com.shpp.p2p.cs.dpron.assignment10.Function.getFunctionMap;
-
 /**
  * The program which inputs a mathematical expression and the parameters that it processes and
  * displays the value that came out as a result of solving the expression.
  */
 public class Assignment10Part1 {
-    /**
-     * Functions map
-     * <p>
-     * String   function name<p>
-     * Function  function action
-     */
-    public static HashMap<String, Function> functionMap;
 
     /**
      * Initializes the parameter check and displays the result obtained during the calculation.
@@ -25,8 +16,6 @@ public class Assignment10Part1 {
      *             all others can be variable.
      */
     public static void main(String[] args) {
-        functionMap = getFunctionMap();
-
         if (args.length == 0) {
             System.err.println("You have not entered parameters");
         } else {
@@ -71,9 +60,6 @@ public class Assignment10Part1 {
                 String var = args[i].replaceAll("\\s", "").split("=")[0];
                 if (isNumeric(var)) {
                     throw new RuntimeException("Variable cannot be numeric");
-                }
-                if (functionMap.containsKey(var)) {
-                    throw new RuntimeException("Functions cannot be assigned values");
                 }
                 variables.put(var, Double.parseDouble(args[i].replaceAll("\\s", "").split("=")[1]));
             }
@@ -182,27 +168,7 @@ public class Assignment10Part1 {
                                 }
 
                                 c = expression.charAt(pos);
-
-                                if (c == '2' || c == '1') {
-                                    sb.append(c);
-                                    pos++;
-
-                                    c = expression.charAt(pos);
-
-                                    if (expression.charAt(pos - 1) == '1' && c == '0') {
-                                        sb.append(c);
-                                        pos++;
-
-                                        c = expression.charAt(pos);
-                                    }
-                                }
                             } while (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
-
-                            if (functionMap.containsKey(sb.toString())) {
-                                lexemes.add(new Lexeme(LexemeType.NAME, sb.toString()));
-                            } else {
-                                throw new RuntimeException("Unexpected character: " + c);
-                            }
                         }
                     }
             }
@@ -278,9 +244,6 @@ public class Assignment10Part1 {
 
         double value;
         switch (lexeme.type) {
-            case NAME:
-                lexemes.back();
-                return mathFunc(lexemes);
             case OP_MINUS:
                 value = factor(lexemes);
                 return -value;
@@ -298,37 +261,6 @@ public class Assignment10Part1 {
                 throw new RuntimeException("Unexpected token: " + lexeme.value
                         + " at position: " + lexemes.getPos());
         }
-    }
-
-    /**
-     * Make  math function
-     *
-     * @return math function result
-     */
-    public static double mathFunc(LexemeBuffer lexemeBuffer) {
-        String name = lexemeBuffer.next().value;
-        Lexeme lexeme = lexemeBuffer.next();
-
-        if (lexeme.type != LexemeType.LEFT_BRACKET) {
-            throw new RuntimeException("Wrong function call syntax at " + lexeme.value);
-        }
-
-        ArrayList<Double> args = new ArrayList<>();
-
-        lexeme = lexemeBuffer.next();
-        if (lexeme.type != LexemeType.RIGHT_BRACKET) {
-            lexemeBuffer.back();
-            do {
-                args.add(expr(lexemeBuffer));
-                lexeme = lexemeBuffer.next();
-
-                if (lexeme.type != LexemeType.COMMA && lexeme.type != LexemeType.RIGHT_BRACKET) {
-                    throw new RuntimeException("Wrong function call syntax at " + lexeme.value);
-                }
-
-            } while (lexeme.type == LexemeType.COMMA);
-        }
-        return functionMap.get(name).apply(args);
     }
 
     /**
