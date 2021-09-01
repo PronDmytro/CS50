@@ -141,9 +141,7 @@ public class Assignment10Part1 {
                     pos++;
                     continue;
                 case ',':
-                    lexemes.add(new Lexeme(LexemeType.COMMA, c));
-                    pos++;
-                    continue;
+                    throw new RuntimeException("Symbol ',' not allowed");
                 default:
                     if (c <= '9' && c >= '0' || c == '.') {
                         StringBuilder sb = new StringBuilder();
@@ -204,7 +202,7 @@ public class Assignment10Part1 {
             switch (lexeme.type) {
                 case OP_PLUS -> value += multiDiv(lexemes);
                 case OP_MINUS -> value -= multiDiv(lexemes);
-                case EOF, RIGHT_BRACKET, COMMA -> {
+                case EOF, RIGHT_BRACKET -> {
                     lexemes.back();
                     return value;
                 }
@@ -218,15 +216,35 @@ public class Assignment10Part1 {
      * Make multiplication and division operations
      */
     public static double multiDiv(LexemeBuffer lexemes) {
+        double value = exponent(lexemes);
+
+        while (true) {
+            Lexeme lexeme = lexemes.next();
+            switch (lexeme.type) {
+                case OP_MUL -> value *= exponent(lexemes);
+                case OP_DIV -> value /= exponent(lexemes);
+                case EOF, RIGHT_BRACKET, OP_PLUS, OP_MINUS -> {
+                    lexemes.back();
+                    return value;
+                }
+                default -> throw new RuntimeException("Unexpected token: " + lexeme.value
+                        + " at position: " + lexemes.getPos());
+            }
+        }
+    }
+
+
+    /**
+     * Make pow operation
+     */
+    public static double exponent(LexemeBuffer lexemes) {
         double value = factor(lexemes);
 
         while (true) {
             Lexeme lexeme = lexemes.next();
             switch (lexeme.type) {
-                case OP_MUL -> value *= factor(lexemes);
-                case OP_DIV -> value /= factor(lexemes);
                 case OP_POW -> value = Math.pow(value, factor(lexemes));
-                case EOF, RIGHT_BRACKET, COMMA, OP_PLUS, OP_MINUS -> {
+                case EOF, RIGHT_BRACKET, OP_PLUS, OP_MINUS, OP_MUL, OP_DIV -> {
                     lexemes.back();
                     return value;
                 }
