@@ -33,4 +33,11 @@ public class Lexeme {
                 ", value='" + value + '\'' +
                 '}';
     }
+
+    // Overriding the inbuilt clone class
+    @Override
+    protected Lexeme clone()
+    {
+        return new Lexeme(type, value);
+    }
 }

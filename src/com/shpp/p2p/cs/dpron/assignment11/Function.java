@@ -21,45 +21,68 @@ public interface Function {
         functionTable.put("sqrt", args -> {
             if (args.isEmpty()) {
                 throw new RuntimeException("No arguments for function sqrt");
+            }else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
             }
             return Math.sqrt(args.get(0));
         });
         functionTable.put("sin", args -> {
             if (args.isEmpty()) {
                 throw new RuntimeException("No arguments for function sqrt");
+            } else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
             }
             return Math.sin(args.get(0));
         });
         functionTable.put("cos", args -> {
             if (args.isEmpty()) {
                 throw new RuntimeException("No arguments for function sqrt");
+            }else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
             }
             return Math.cos(args.get(0));
         });
         functionTable.put("tan", args -> {
             if (args.isEmpty()) {
                 throw new RuntimeException("No arguments for function sqrt");
+            }else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
             }
             return Math.tan(args.get(0));
         });
         functionTable.put("atan", args -> {
             if (args.isEmpty()) {
                 throw new RuntimeException("No arguments for function sqrt");
+            }else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
             }
             return Math.atan(args.get(0));
         });
         functionTable.put("log10", args -> {
             if (args.isEmpty()) {
                 throw new RuntimeException("No arguments for function sqrt");
+            }else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
             }
             return Math.log10(args.get(0));
         });
         functionTable.put("log2", args -> {
             if (args.isEmpty()) {
                 throw new RuntimeException("No arguments for function sqrt");
+            }else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
             }
             return (Math.log(args.get(0)) / Math.log(2));
         });
+        functionTable.put("exp", args -> {
+            if (args.isEmpty()) {
+                throw new RuntimeException("No arguments for function sqrt");
+            }else if (args.size() > 1) {
+                throw new RuntimeException("So many arguments");
+            }
+            return Math.exp(args.get(0));
+        });
+
         return functionTable;
     }
 }

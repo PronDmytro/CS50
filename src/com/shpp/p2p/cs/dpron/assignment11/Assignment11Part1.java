@@ -13,7 +13,7 @@ public class Assignment11Part1 {
      * Functions map
      * <p>
      * String   function name<p>
-     * Function  function action
+     * Function  function of action
      */
     public static HashMap<String, Function> functionMap;
 
@@ -36,7 +36,8 @@ public class Assignment11Part1 {
                 throw new RuntimeException("Formula is empty!");
             } else {
                 System.out.println("Formula: " + formula);
-                System.out.println("Result: " + calculate(normalizeFormula(formula), getVariables(args)));
+                List<Lexeme> lexemes = parseExpression(normalizeFormula(formula));
+                System.out.println("Result: " + calculate(lexemes, getVariables(args)));
             }
         }
     }
@@ -45,15 +46,12 @@ public class Assignment11Part1 {
      * The function that enters the calculation formula and the variables
      * that are set by the user and returns the calculated value.
      *
-     * @param formula   the formula to be calculated
+     * @param lexemes   list of lexemes to be calculated
      * @param variables variables that are set by the user
      * @return the value obtained
      */
-    private static double calculate(String formula, HashMap<String, Double> variables) {
-        String expr = makeExpression(formula, variables);
-        List<Lexeme> lexemes = parseExpression(expr);
-        LexemeBuffer lexemeBuffer = new LexemeBuffer(lexemes);
-
+    private static double calculate(List<Lexeme> lexemes, HashMap<String, Double> variables) {
+        LexemeBuffer lexemeBuffer = new LexemeBuffer(makeExpression(lexemes, variables));
         return expr(lexemeBuffer);
     }
 
@@ -103,15 +101,34 @@ public class Assignment11Part1 {
     /**
      * Replaces variables in the formula with their values
      *
-     * @param formula   formula
+     * @param lexemes   lexemes
      * @param variables variables
      * @return expression
      */
-    private static String makeExpression(String formula, HashMap<String, Double> variables) {
-        for (String variable : variables.keySet()) {
-            formula = formula.replaceAll(variable, variables.get(variable).toString());
+    private static List<Lexeme> makeExpression(List<Lexeme> lexemes, HashMap<String, Double> variables) {
+        List<Lexeme> tempLexemes = cloneLexemesList(lexemes);
+        for (Lexeme lexeme : tempLexemes) {
+            if (lexeme.type == LexemeType.VARIABLE) {
+                lexeme.type = LexemeType.NUMBER;
+                lexeme.value = variables.get(lexeme.value).toString();
+            }
         }
-        return formula;
+        return tempLexemes;
+    }
+
+    /**
+     * Clone all list of lexemes
+     *
+     * @param basicLexemes basic lexemes
+     * @return cloned list
+     */
+    private static List<Lexeme> cloneLexemesList(List<Lexeme> basicLexemes) {
+        ArrayList<Lexeme> lexemes = new ArrayList<>();
+
+        for (Lexeme lexeme : basicLexemes) {
+            lexemes.add(lexeme.clone());
+        }
+        return lexemes;
     }
 
     /**
@@ -201,7 +218,7 @@ public class Assignment11Part1 {
                             if (functionMap.containsKey(sb.toString())) {
                                 lexemes.add(new Lexeme(LexemeType.NAME, sb.toString()));
                             } else {
-                                throw new RuntimeException("Unexpected character: " + c);
+                                lexemes.add(new Lexeme(LexemeType.VARIABLE, sb.toString()));
                             }
                         }
                     }
@@ -252,15 +269,34 @@ public class Assignment11Part1 {
      * Make multiplication and division operations
      */
     public static double multiDiv(LexemeBuffer lexemes) {
+        double value = exponent(lexemes);
+
+        while (true) {
+            Lexeme lexeme = lexemes.next();
+            switch (lexeme.type) {
+                case OP_MUL -> value *= exponent(lexemes);
+                case OP_DIV -> value /= exponent(lexemes);
+                case EOF, RIGHT_BRACKET, COMMA, OP_PLUS, OP_MINUS -> {
+                    lexemes.back();
+                    return value;
+                }
+                default -> throw new RuntimeException("Unexpected token: " + lexeme.value
+                        + " at position: " + lexemes.getPos());
+            }
+        }
+    }
+
+    /**
+     * Make pow operation
+     */
+    public static double exponent(LexemeBuffer lexemes) {
         double value = factor(lexemes);
 
         while (true) {
             Lexeme lexeme = lexemes.next();
             switch (lexeme.type) {
-                case OP_MUL -> value *= factor(lexemes);
-                case OP_DIV -> value /= factor(lexemes);
                 case OP_POW -> value = Math.pow(value, factor(lexemes));
-                case EOF, RIGHT_BRACKET, COMMA, OP_PLUS, OP_MINUS -> {
+                case EOF, RIGHT_BRACKET, OP_PLUS, OP_MINUS, OP_MUL, OP_DIV -> {
                     lexemes.back();
                     return value;
                 }
@@ -301,7 +337,7 @@ public class Assignment11Part1 {
     }
 
     /**
-     * Make  math function
+     * Make math function
      *
      * @return math function result
      */
