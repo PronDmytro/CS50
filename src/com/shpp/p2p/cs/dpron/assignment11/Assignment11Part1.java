@@ -2,8 +2,6 @@ package com.shpp.p2p.cs.dpron.assignment11;
 
 import java.util.*;
 
-import static com.shpp.p2p.cs.dpron.assignment11.Function.getFunctionMap;
-
 /**
  * The program which inputs a mathematical expression and the parameters that it processes and
  * displays the value that came out as a result of solving the expression.
@@ -15,7 +13,7 @@ public class Assignment11Part1 {
      * String   function name<p>
      * Function  function of action
      */
-    public static HashMap<String, Function> functionMap;
+    public static HashMap<String, Function> functionMap = FunctionMap.getFunctionMap();
 
     /**
      * Initializes the parameter check and displays the result obtained during the calculation.
@@ -25,19 +23,21 @@ public class Assignment11Part1 {
      *             all others can be variable.
      */
     public static void main(String[] args) {
-        functionMap = getFunctionMap();
-
         if (args.length == 0) {
             System.err.println("You have not entered parameters");
         } else {
             String formula = args[0];
 
-            if (formula.isEmpty()) {
-                throw new RuntimeException("Formula is empty!");
-            } else {
-                System.out.println("Formula: " + formula);
-                List<Lexeme> lexemes = parseExpression(normalizeFormula(formula));
-                System.out.println("Result: " + calculate(lexemes, getVariables(args)));
+            try {
+                if (formula.isEmpty()) {
+                    throw new RuntimeException("Formula is empty!");
+                } else {
+                    System.out.println("Formula: " + formula);
+                    List<Lexeme> lexemes = new Parser().parseExpression(normalizeFormula(formula));
+                    System.out.println("Result: " + calculate(lexemes, getVariables(args)));
+                }
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -110,7 +110,12 @@ public class Assignment11Part1 {
         for (Lexeme lexeme : tempLexemes) {
             if (lexeme.type == LexemeType.VARIABLE) {
                 lexeme.type = LexemeType.NUMBER;
-                lexeme.value = variables.get(lexeme.value).toString();
+                try {
+                    lexeme.value = variables.get(lexeme.value).toString();
+                }catch (Exception e) {
+                    throw new RuntimeException("Variable {"+lexeme.value+"} cannot find");
+                }
+
             }
         }
         return tempLexemes;
@@ -131,106 +136,11 @@ public class Assignment11Part1 {
         return lexemes;
     }
 
-    /**
-     * Expression parser
-     *
-     * @param expression Our expression
-     * @return List of lexemes
-     */
-    public static List<Lexeme> parseExpression(String expression) {
-        ArrayList<Lexeme> lexemes = new ArrayList<>();
-        int pos = 0;
-        while (pos < expression.length()) {
-            char c = expression.charAt(pos);
-            switch (c) {
-                case '(':
-                    lexemes.add(new Lexeme(LexemeType.LEFT_BRACKET, c));
-                    pos++;
-                    continue;
-                case ')':
-                    lexemes.add(new Lexeme(LexemeType.RIGHT_BRACKET, c));
-                    pos++;
-                    continue;
-                case '+':
-                    lexemes.add(new Lexeme(LexemeType.OP_PLUS, c));
-                    pos++;
-                    continue;
-                case '-':
-                    lexemes.add(new Lexeme(LexemeType.OP_MINUS, c));
-                    pos++;
-                    continue;
-                case '*':
-                    lexemes.add(new Lexeme(LexemeType.OP_MUL, c));
-                    pos++;
-                    continue;
-                case '^':
-                    lexemes.add(new Lexeme(LexemeType.OP_POW, c));
-                    pos++;
-                    continue;
-                case '/':
-                    lexemes.add(new Lexeme(LexemeType.OP_DIV, c));
-                    pos++;
-                    continue;
-                case ',':
-                    lexemes.add(new Lexeme(LexemeType.COMMA, c));
-                    pos++;
-                    continue;
-                default:
-                    if (c <= '9' && c >= '0' || c == '.') {
-                        StringBuilder sb = new StringBuilder();
-                        do {
-                            sb.append(c);
-                            pos++;
-                            if (pos >= expression.length()) {
-                                break;
-                            }
-                            c = expression.charAt(pos);
-                        } while (c <= '9' && c >= '0' || c == '.');
-                        lexemes.add(new Lexeme(LexemeType.NUMBER, sb.toString()));
-                    } else {
-                        if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
-                            StringBuilder sb = new StringBuilder();
-                            do {
-                                sb.append(c);
-                                pos++;
-
-                                if (pos >= expression.length()) {
-                                    break;
-                                }
-
-                                c = expression.charAt(pos);
-
-                                if (c == '2' || c == '1') {
-                                    sb.append(c);
-                                    pos++;
-
-                                    c = expression.charAt(pos);
-
-                                    if (expression.charAt(pos - 1) == '1' && c == '0') {
-                                        sb.append(c);
-                                        pos++;
-
-                                        c = expression.charAt(pos);
-                                    }
-                                }
-                            } while (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
-
-                            if (functionMap.containsKey(sb.toString())) {
-                                lexemes.add(new Lexeme(LexemeType.NAME, sb.toString()));
-                            } else {
-                                lexemes.add(new Lexeme(LexemeType.VARIABLE, sb.toString()));
-                            }
-                        }
-                    }
-            }
-        }
-        lexemes.add(new Lexeme(LexemeType.EOF, ""));
-        return lexemes;
-    }
 
     /**
      * Calculate expression
      *
+     * @param lexemes lexeme buffer
      * @return result
      */
     public static double expr(LexemeBuffer lexemes) {
@@ -246,6 +156,9 @@ public class Assignment11Part1 {
 
     /**
      * Make plus and minus operations
+     *
+     * @param lexemes lexeme buffer
+     * @return completed plus-minus operation
      */
     public static double plusMinus(LexemeBuffer lexemes) {
         double value = multiDiv(lexemes);
@@ -260,13 +173,16 @@ public class Assignment11Part1 {
                     return value;
                 }
                 default -> throw new RuntimeException("Unexpected token: " + lexeme.value
-                        + " at position: " + lexemes.getPos());
+                        + " at position: " + lexemes.getPosition());
             }
         }
     }
 
     /**
      * Make multiplication and division operations
+     *
+     * @param lexemes lexeme buffer
+     * @return completed multi-div operation
      */
     public static double multiDiv(LexemeBuffer lexemes) {
         double value = exponent(lexemes);
@@ -281,13 +197,16 @@ public class Assignment11Part1 {
                     return value;
                 }
                 default -> throw new RuntimeException("Unexpected token: " + lexeme.value
-                        + " at position: " + lexemes.getPos());
+                        + " at position: " + lexemes.getPosition());
             }
         }
     }
 
     /**
      * Make pow operation
+     *
+     * @param lexemes lexeme buffer
+     * @return completed pow operation
      */
     public static double exponent(LexemeBuffer lexemes) {
         double value = factor(lexemes);
@@ -301,13 +220,16 @@ public class Assignment11Part1 {
                     return value;
                 }
                 default -> throw new RuntimeException("Unexpected token: " + lexeme.value
-                        + " at position: " + lexemes.getPos());
+                        + " at position: " + lexemes.getPosition());
             }
         }
     }
 
     /**
-     * Make action in brackets
+     * Make simple operation
+     *
+     * @param lexemes lexeme buffer
+     * @return completed simple operation
      */
     public static double factor(LexemeBuffer lexemes) {
         Lexeme lexeme = lexemes.next();
@@ -327,18 +249,19 @@ public class Assignment11Part1 {
                 lexeme = lexemes.next();
                 if (lexeme.type != LexemeType.RIGHT_BRACKET) {
                     throw new RuntimeException("Unexpected token: " + lexeme.value
-                            + " at position: " + lexemes.getPos());
+                            + " at position: " + lexemes.getPosition());
                 }
                 return value;
             default:
                 throw new RuntimeException("Unexpected token: " + lexeme.value
-                        + " at position: " + lexemes.getPos());
+                        + " at position: " + lexemes.getPosition());
         }
     }
 
     /**
      * Make math function
      *
+     * @param lexemeBuffer lexeme buffer
      * @return math function result
      */
     public static double mathFunc(LexemeBuffer lexemeBuffer) {
@@ -378,7 +301,7 @@ public class Assignment11Part1 {
         }
 
         try {
-            double d = Double.parseDouble(strNum);
+            Double.parseDouble(strNum);
         } catch (NumberFormatException nfe) {
             return false;
         }

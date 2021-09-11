@@ -6,7 +6,7 @@ import java.util.List;
  * Lexeme buffer
  */
 public class LexemeBuffer {
-    private int pos;
+    private int position;
 
     public List<Lexeme> lexemes;
 
@@ -23,20 +23,20 @@ public class LexemeBuffer {
      * Go further
      */
     public Lexeme next() {
-        return lexemes.get(pos++);
+        return lexemes.get(position++);
     }
 
     /**
      * Go back
      */
     public void back() {
-        pos--;
+        position--;
     }
 
     /**
      * Get position
      */
-    public int getPos() {
-        return pos;
+    public int getPosition() {
+        return position;
     }
 }
