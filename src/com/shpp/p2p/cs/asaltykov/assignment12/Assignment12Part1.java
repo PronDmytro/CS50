@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 /**
  * This class defines number of object in image
- *
+ * <p>
  * Rules:
  * 1. if image has gradient background - set COLOR_SENSITIVITY 3;
  * 2. if image has gradient objects - set COLOR_SENSITIVITY 1-2;
@@ -170,7 +170,6 @@ public class Assignment12Part1 extends WindowProgram {
      * convert color with COLOR_SENSITIVITY level (2-3)
      *
      * @param grey color to convert
-     *
      * @return converting color
      */
     private static int changeColor(int grey) {
@@ -180,7 +179,7 @@ public class Assignment12Part1 extends WindowProgram {
             if (grey >= BLACK_COLOR_LEVEL) grey = 255;
             else grey = 0;
 
-        // for level 3 - change color evenly
+            // for level 3 - change color evenly
         } else if (COLOR_SENSITIVITY == 2) {
             if (grey > 225) grey = 255;
             else if (grey > 200 && grey < 225) grey = 225;
@@ -199,10 +198,10 @@ public class Assignment12Part1 extends WindowProgram {
     /**
      * Add vertex data to graph array
      *
-     * @param i column of image pixel grid
-     * @param j row of image pixel grid
+     * @param i       column of image pixel grid
+     * @param j       row of image pixel grid
      * @param counter number of vertex
-     * @param color color of vertex
+     * @param color   color of vertex
      */
     private static void addConnection(int i, int j, int counter, int color) {
 
@@ -289,7 +288,7 @@ public class Assignment12Part1 extends WindowProgram {
         }
 
         //find witch color is more
-        for (HashMap.Entry<Integer, Integer> entry: map.entrySet()){
+        for (HashMap.Entry<Integer, Integer> entry : map.entrySet()) {
             if (entry.getValue() > counter) {
                 counter = entry.getValue();
                 answer = entry.getKey();
@@ -306,10 +305,10 @@ public class Assignment12Part1 extends WindowProgram {
     private static int findStar() {
         int start = 0;
         //for each vertex in graphList
-        for (Graph g: graphsList){
+        for (Graph g : graphsList) {
 
             //in vertex color is backgroundColor - set star position
-            if (g.color == background){
+            if (g.color == background) {
                 start = g.number;
                 break;
             }
@@ -353,7 +352,7 @@ public class Assignment12Part1 extends WindowProgram {
                 }
             }
 
-        //if vertex hasn`t any not background color neighbor
+            //if vertex hasn`t any not background color neighbor
         } else {
 
             //check garbage filter

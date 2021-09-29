@@ -18,8 +18,8 @@ class Graph {
      * Create new Graph object
      *
      * @param number vertex number(name)
-     * @param color vertex color
-     * @param list vertex list of connections
+     * @param color  vertex color
+     * @param list   vertex list of connections
      */
     Graph(int number, int color, ArrayList<Integer> list) {
         this.number = number;
